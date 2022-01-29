@@ -70,7 +70,8 @@ STRING-LIST: The list to be used to build the regex string."
 
   (setq-local comment-start "//")
   (setq-local comment-end "")
-  (add-hook 'completion-at-point-functions 'ctl-function-completion-at-point nil 'local))
+  (add-hook 'completion-at-point-functions 'ctl-function-completion-at-point nil 'local)
+  (rainbow-delimiters-mode-enable))
 
 (add-to-list 'auto-mode-alist '("\\.ctl\\'" . ctl-mode))
 (provide 'ctl-mode)
