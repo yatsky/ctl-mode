@@ -25,8 +25,8 @@
 (defconst ctl-datatypes '("boolean" "number" "byte" "string" "cbyte" "list" "date" "map" "decimal" "variant" "integer" "record" "long" "string[]" "integer[]")
   "Datatypes in `ctl-mode'.")
 
-(defconst ctl-negations '("!")
-  "Negation in `ctl-mode'.")
+(defconst ctl-operand "[-+*/=<>,;:!|]"
+  "Punctuation Operands in `ctl-mode'.")
 
 (defconst ctl-completion-keywords (append ctl-keywords ctl-datatypes)
   "Keywords for auto completion.")
@@ -51,7 +51,7 @@ STRING-LIST: The list to be used to build the regex string."
 	  `((,(build-regex-string ctl-keywords) . 'font-lock-keyword-face)
 		("ALL" . 'font-lock-constant-face)
 		(,(build-regex-string ctl-datatypes) . 'font-lock-type-face)
-		("[-+*/=<>,;:!|]" . 'font-lock-negation-char-face)
+		(,ctl-operand . 'font-lock-negation-char-face)
 		;; 1 means use the first captured group
 		(,ctl-function-re 1 'font-lock-function-name-face)))
 
