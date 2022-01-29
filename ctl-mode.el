@@ -19,7 +19,7 @@
 
 ;;; Code:
 
-(defconst ctl-keywords '("for" "if" "function" "return" "const" "$in." "$out.")
+(defconst ctl-keywords '("for" "foreach" "do" "while" "if" "function" "return" "const" "$in." "$out." "switch" "case" "break" "default" "continue" "return" "try" "catch" "OnError")
   "Keywords in `ctl-mode'.")
 
 (defconst ctl-datatypes '("boolean" "number" "byte" "string" "cbyte" "list" "date" "map" "decimal" "variant" "integer" "record" "long" "string[]" "integer[]")
