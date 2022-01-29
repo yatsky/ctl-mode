@@ -315,6 +315,9 @@
 
 (defconst ctl-function-re "\\<\\(\\sw+\\) ?(")
 
+(defvar  ctl-highlights ""
+  "A string of all things that need to be highlighted in ctl.")
+
 (defun build-regex-string (string-list)
   "Build regex string for font-lock-*-face.
 STRING-LIST: The list to be used to build the regex string."
@@ -329,7 +332,7 @@ STRING-LIST: The list to be used to build the regex string."
 		 (end (cdr bds)))
 	(list start end ctl-completion-keywords . nil)))
 
-(setq yaoni/ctl-highlights
+(setq ctl-highlights
 	  `((,(build-regex-string (append ctl-keywords ctl-builtin-functions)) . 'font-lock-keyword-face)
 		("ALL" . 'font-lock-constant-face)
 		(,(build-regex-string ctl-datatypes) . 'font-lock-type-face)
