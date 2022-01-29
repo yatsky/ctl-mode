@@ -13,29 +13,39 @@
 ;;; Commentary:
 ;;; TODO:
 ;;; DONE. Syntax coloring.
-;;; Comment command.
+;;; DONE. Comment command.
+;;; DONE. Keyword completion.
 
 
 ;;; Code:
 
-(defvar ctl-keywords '("for" "if" "function" "return" "const" "$in." "$out.")
+(defconst ctl-keywords '("for" "if" "function" "return" "const" "$in." "$out.")
   "Keywords in `ctl-mode'.")
 
-(setq ctl-keywords '("for" "if" "function" "return" "$in." "$out."))
-
-(defvar ctl-datatypes '("boolean" "number" "byte" "string" "cbyte" "list" "date" "map" "decimal" "variant" "integer" "record" "long" "string[]" "integer[]")
+(defconst ctl-datatypes '("boolean" "number" "byte" "string" "cbyte" "list" "date" "map" "decimal" "variant" "integer" "record" "long" "string[]" "integer[]")
   "Datatypes in `ctl-mode'.")
 
-(defvar ctl-negations '("!")
+(defconst ctl-negations '("!")
   "Negation in `ctl-mode'.")
 
-(defconst ctl-function-re "transform")
+(defconst ctl-completion-keywords (append ctl-keywords ctl-datatypes)
+  "Keywords for auto completion.")
+
+(defconst ctl-function-re "\\<\\(\\sw+\\) ?(")
 
 (defun build-regex-string (string-list)
   "Build regex string for font-lock-*-face.
 STRING-LIST: The list to be used to build the regex string."
-  (mapconcat 'identity (mapcar #'(lambda (x) (concat "\\b" x "\\b")) string-list) "\\|")
-  )
+  (mapconcat 'identity (mapcar #'(lambda (x) (concat "\\b" x "\\b")) string-list) "\\|"))
+
+(defun ctl-function-completion-at-point ()
+  "Function completion for the hook `completion-at-point-functions'."
+  (interactive)
+  (let* (
+		 (bds (bounds-of-thing-at-point 'symbol))
+		 (start (car bds))
+		 (end (cdr bds)))
+	(list start end ctl-completion-keywords . nil)))
 
 (setq yaoni/ctl-highlights
 	  `((,(build-regex-string ctl-keywords) . 'font-lock-keyword-face)
@@ -43,7 +53,7 @@ STRING-LIST: The list to be used to build the regex string."
 		(,(build-regex-string ctl-datatypes) . 'font-lock-type-face)
 		("[-+*/=<>,;:!|]" . 'font-lock-negation-char-face)
 		;; 1 means use the first captured group
-		("\\<\\(\\sw+\\) ?(" 1 'font-lock-function-name-face)))
+		(,ctl-function-re 1 'font-lock-function-name-face)))
 
 (defvar ctl-mode-syntax-table nil "Syntax table for `ctl-mode'.")
 
@@ -59,7 +69,8 @@ STRING-LIST: The list to be used to build the regex string."
   (set-syntax-table ctl-mode-syntax-table)
 
   (setq-local comment-start "//")
-  (setq-local comment-end ""))
+  (setq-local comment-end "")
+  (add-hook 'completion-at-point-functions 'ctl-function-completion-at-point nil 'local))
 
 (add-to-list 'auto-mode-alist '("\\.ctl\\'" . ctl-mode))
 (provide 'ctl-mode)
