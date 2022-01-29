@@ -352,6 +352,8 @@ STRING-LIST: The list to be used to build the regex string."
 
   (setq-local comment-start "//")
   (setq-local comment-end "")
+  (setq-local tab-width 4)
+  (setq-local indent-tabs-mode t)
   (add-hook 'completion-at-point-functions 'ctl-function-completion-at-point nil 'local)
   (rainbow-delimiters-mode-enable))
 
