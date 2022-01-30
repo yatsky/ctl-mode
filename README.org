@@ -1,0 +1,7 @@
+This is a simple major mode for CloverDX's CloverDX Transformation Language.
+
+* Features
+- [X] Basic syntax highlighting
+- [X] Keyword completion
+- [X] Comment highlighting
+- [X] Comment command (toggle comment on and off)
