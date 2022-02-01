@@ -350,7 +350,7 @@ STRING-LIST: The list to be used to build the regex string."
 		synTable))
 (define-derived-mode ctl-mode fundamental-mode "ϕCTL"
   "Major mode for editing Common Transform Language code"
-  (setq font-lock-defaults '(yaoni/ctl-highlights))
+  (setq font-lock-defaults '(ctl-highlights))
   (set-syntax-table ctl-mode-syntax-table)
 
   (setq-local comment-start "//")
