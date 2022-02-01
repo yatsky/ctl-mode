@@ -301,7 +301,7 @@
 								  )
   "Builtin functions in CTL.")
 
-(defconst ctl-keywords '("for" "foreach" "do" "while" "if" "function" "return" "const" "$in." "$out." "switch" "case" "break" "default" "continue" "return" "try" "catch" "OnError" "dictionary")
+(defconst ctl-keywords '("for" "foreach" "do" "while" "if" "else" "function" "return" "const" "$in." "$out." "switch" "case" "break" "default" "continue" "return" "try" "catch" "OnError" "dictionary")
   "Keywords in `ctl-mode'.")
 
 (defconst ctl-datatypes '("boolean" "number" "byte" "string" "cbyte" "list" "date" "map" "decimal" "variant" "integer" "record" "long" "string[]" "integer[]")
